@@ -1,2 +1,4 @@
 # SQLite-Command-Line-Interface-Menu
-Simple command line interface project that allows an end user to create, read, update, and delete student records including their name, grade, and email. Utilizes SQLite and Python.
+This project is a simple command-line application built with Python and SQLite that allows users to manage student records through an interactive menu. It was created as a hands-on way to practice working with databases, user input, and basic CRUD operations.
+
+The program automatically creates (or connects to) a local SQLite database and provides options to add, view, update, and delete student records. Each record includes a student’s name, grade, and email, making it a straightforward but practical example of how data can be stored and managed efficiently.
