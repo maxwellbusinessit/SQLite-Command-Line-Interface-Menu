@@ -1,15 +1,17 @@
 import sqlite3
+from sys import excepthook
+
 
 def create_or_reference_existing_database():
     connection = sqlite3.connect("menu_project.db")
     cursor = connection.cursor()
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS students (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    grade TEXT,
-    email TEXT
-    ) """)
+                   CREATE TABLE IF NOT EXISTS students (
+                                                           id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                           name TEXT,
+                                                           grade TEXT,
+                                                           email TEXT
+                   ) """)
     connection.commit()
     connection.close()
     print("Database intialized!")
@@ -26,7 +28,7 @@ def add_student():
     cursor = connection.cursor()
 
     sql = """INSERT INTO students(name,grade,email)
-        VALUES(?,?,?)"""
+             VALUES(?,?,?)"""
 
     cursor.execute(sql, (student_name, student_grade, student_email))
     connection.commit()
@@ -63,9 +65,9 @@ def update_student():
     cursor = connection.cursor()
 
     sql = """UPDATE students SET name = ?, grade = ?, email = ?
-        WHERE name = ?"""
+             WHERE name = ?"""
 
-    cursor.execute(sql, (student_newname, student_newname, student_newgrade, student_name))
+    cursor.execute(sql, (student_newname, student_newgrade, student_newemail, student_name))
     connection.commit()
     connection.close()
     print("Student record successfuly updated!")
@@ -96,27 +98,24 @@ def main():
     response = input("What would you like to do? ")
     return response
 
-
-create_or_reference_existing_database()
-while True:
-    response = main()
-    if response == "5":
-        print()
-        print("Goodbye!")
-        break
-    elif response == "1":
+try:
+    create_or_reference_existing_database()
+    while True:
+        response = main()
+        if response == "5":
+            print()
+            print("Goodbye!")
+            break
+        elif response == "1":
             add_student()
-    elif response == "2":
+        elif response == "2":
             view_student()
-    elif response == "3":
+        elif response == "3":
             update_student()
-    elif response == "4":
+        elif response == "4":
             delete_student()
-
-
-
-
-
+except:
+    print("An exception occured!")
 
 
 
